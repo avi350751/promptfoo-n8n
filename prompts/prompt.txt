@@ -1,1 +1,1 @@
-Answer promptly and concisely on: {{topic}}
+Answer user's query on: {{topic}}

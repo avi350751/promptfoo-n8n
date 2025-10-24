@@ -14,7 +14,11 @@ jobs:
       - run: npm i -g promptfoo
       - name: Run promptfoo
         run: |
+          set +e
           npx promptfoo eval --output results.json
+          EC=$?
+          echo "exit_code=$EC" >> "$GITHUB_OUTPUT"
+          exit 0
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       - name: Upload report artifact

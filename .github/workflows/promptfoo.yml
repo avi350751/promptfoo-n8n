@@ -1,0 +1,24 @@
+name: Promptfoo Evaluation on n8n
+on:
+  push:
+    branches: [ main ] 
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: npm ci || true
+      - run: npm i -g promptfoo
+      - name: Run promptfoo
+        run: |
+          npx promptfoo eval -config promptfooconfig.yaml
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: promptfoo-report
+          path: ./.promptfoo/latest/

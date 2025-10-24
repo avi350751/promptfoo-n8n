@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   n8n:
     image: docker.n8n.io/n8nio/n8n
@@ -20,8 +18,7 @@ services:
       - ~/Project3_n8n:/data/repo:rw
     command: |
       promptfoo eval \
-      -c /data/promptfooconfig.yaml \
-      --output /tmp/pf-results.json \
+      -config /data/promptfooconfig.yaml \
       --share --fail-on-error
       cat /tmp/pf-results.json
 

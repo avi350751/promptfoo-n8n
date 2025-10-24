@@ -1,0 +1,38 @@
+description: "My eval"
+
+prompts:
+  - "Answer the user query on: {{topic}}"
+  
+
+providers:
+  - "openai:gpt-4o-mini"
+  
+
+tests:
+  - description: "Test tweet about Cricket"
+    vars:
+      topic: What is Cricket?
+    assert:
+      - type: g-eval
+        value: |
+          The answer should mention the sport Cricket.
+          Be factual about the game, it's rules and popular tournamnets.
+          Ensure few players are mentioned who have excelled in this sport.
+          Do not mention any other sport or hallucinate any facts.
+        threshold: 0.7
+  - description: "Test tweet about Nobel Prize"
+    vars:
+      topic: Who received the Nobel Prize in Literature in 2021?
+    assert:
+      - type: icontains
+        value: "Abdulrazak"
+  - description: "Test tweet about NYC"
+    vars:
+      topic: What are the prime tourist locations of New York City
+    assert:
+      - type: llm-rubric
+        value: |
+          Ensure the response describes the enregy, vibe and cultural significance of New York City.
+          Answer should include 3 oout of 5 of the places mentioned - Statue of Liberty, Central Park, Times Square, Broadway, MMOA.
+        threshold: 0.65
+

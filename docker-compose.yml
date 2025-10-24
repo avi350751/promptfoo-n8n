@@ -18,7 +18,12 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       # Replace the path below with your actual local path
       - ~/Project3_n8n:/data/repo:rw
-    command: /bin/sh -c "apk add --no-cache git nodejs npm && npm install -g promptfoo && n8n start"
+    command: |
+      promptfoo eval \
+      -c /data/promptfooconfig.yaml \
+      --output /tmp/pf-results.json \
+      --share --fail-on-error
+      cat /tmp/pf-results.json
 
 volumes:
   n8n_data:

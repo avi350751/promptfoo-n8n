@@ -11,13 +11,14 @@ services:
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=admin
       - N8N_BASIC_AUTH_PASSWORD=${N8N_BASIC_AUTH_PASSWORD}
-      - OPENAI_API_KEY=${OPENAI_API_KEY}  # Your OpenAI key
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
       - WEBHOOK_URL=http://localhost:5678/
     volumes:
       - n8n_data:/home/node/.n8n
-      - /var/run/docker.sock:/var/run/docker.sock  # To run Docker commands
-      - ~/your-repo:/data/repo:rw  # Mount your repo - CHANGE THIS PATH!
-    command: /bin/sh -c "apk add --no-cache git nodejs npm && n8n start"
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Replace the path below with your actual local path
+      - ~/Project3_n8n:/data/repo:rw
+    command: /bin/sh -c "apk add --no-cache git nodejs npm && npm install -g promptfoo && n8n start"
 
 volumes:
   n8n_data:
